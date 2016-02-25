@@ -1,39 +1,32 @@
-// src/app.js
-// Configuración de las aplicaciones
-
 (function (ng) {
 
-  // define la aplicación con sus dependencias
-  var mod = ng.module("mainApp", [
-    "ui.router",
-    "personModule",
-    "personMock",
-    "taskModule",
-    "taskMock"
-  ]);
-  
-  // define los estados y las rutas de la aplicación
-  mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-  
-    // estado por defecto
-    $urlRouterProvider.otherwise("/person");
-    
-    // definición de los estados de la aplicación
-    $stateProvider
-      .state('person', {
-        url: '/person',
-        controller: "personCtrl",
-        controllerAs: "ctrl",
-        templateUrl: "src/modules/person/person.tpl.html"
-      })
-      
-      // agregar otros estados
-      .state( 'nombre-estado', { 
-        
-        /* datos */ 
-        
-      });  // el último estado tiene punto y coma
-      
-  }]); // cierra el mod.config( ... )
-    
+    var mod = ng.module("mainApp", [
+        "ui.router",
+        "personModule",
+        "taskModule"
+    ]);
+
+    mod.config(['$logProvider', function ($logProvider) {
+            $logProvider.debugEnabled(true);
+        }]);
+
+    mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise("/person");
+            $stateProvider
+            //En esta sección deben ir los estados que tendrá su aplicación
+            //Ejemplo
+            //.state(......
+                    .state('person', {
+                        url: '/person',
+                        controller: "personCtrl",
+                        controllerAs: "ctrl",
+                        templateUrl: "src/modules/person/person.tpl.html"
+                    })
+                    .state('task', {
+                        url: '/task',
+                        controller: "taskCtrl",
+                        controllerAs: "ctrl",
+                        templateUrl: "src/modules/task/task.tpl.html"
+                    });
+        }]);
 })(window.angular);
